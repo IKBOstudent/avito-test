@@ -5,6 +5,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
+    "@feature-sliced",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -15,5 +16,8 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
+    "import/no-internal-modules": 0,
+    "import/order": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
   },
 };

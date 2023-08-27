@@ -16,6 +16,7 @@
     "react-router-dom": "6.15.0"
   },
   "devDependencies": {
+    "@feature-sliced/eslint-config": "0.1.0-beta.6",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "@typescript-eslint/eslint-plugin": "6.0.0",
@@ -25,10 +26,13 @@
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-react-refresh": "0.4.3",
+    "path": "0.12.7",
     "prettier": "3.0.2",
+    "sass": "1.66.1",
     "typescript": "5.0.2",
     "typescript-plugin-css-modules": "5.0.1",
     "vite": "4.4.5",
+    "vite-plugin-eslint": "1.8.1",
     "vite-plugin-svgr": "3.2.0"
   }
 }
