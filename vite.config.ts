@@ -11,4 +11,10 @@ export default defineConfig({
     resolve: {
         alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
     },
+    css: {
+        modules: {
+            generateScopedName: '[name]__[local]__[hash:8]',
+            localsConvention: null,
+        },
+    },
 });

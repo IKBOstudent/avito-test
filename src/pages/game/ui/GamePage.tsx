@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import { useGetGameByIdQuery } from '@/shared/api/baseApi';
 import GameDetails from '@/widgets/GameDetails';
 
 import styles from './GamePage.module.scss';
 
 export const GamePage = () => {
     const { id } = useParams<{ id: string }>();
-    const [isFetching, setIsFetching] = useState<boolean>(true);
-    const { data } = { data: [] };
-
-    useEffect(() => {
-        setTimeout(() => setIsFetching(false), 3000);
-    }, []);
+    const {
+        data = null,
+        isFetching,
+        error,
+    } = useGetGameByIdQuery(id || '0', {
+        skip: !id,
+    });
 
     const isNotFound = !id || (!isFetching && !data);
 
@@ -24,9 +25,12 @@ export const GamePage = () => {
         );
     }
 
+    if (error) return null;
+    if (!data) return null;
+
     return (
         <div className={styles.root}>
-            <GameDetails isFetching={isFetching} />
+            <GameDetails game={data} loading={isFetching} />
         </div>
     );
 };
