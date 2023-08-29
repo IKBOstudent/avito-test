@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+    back:
+        image: avito-dev-back
+        build:
+            context: ./backend
+            dockerfile: ./Dockerfile.dev
+
+        container_name: avito-test-back
+        ports:
+            - 3000:3000
+
+    front:
+        image: avito-dev-front
+        build:
+            context: ./frontend
+            dockerfile: ./Dockerfile.dev
+
+        container_name: avito-test-front
+        ports:
+            - 3001:3001
+        depends_on:
+            - back

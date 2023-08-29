@@ -1,0 +1,21 @@
+{
+  "overrides": [
+    {
+      "files": ["*.{ts,js}"],
+      "options": {
+        "tabWidth": 4,
+        "trailingComma": "es5",
+        "semi": true,
+        "singleQuote": true,
+        "printWidth": 80,
+        "arrowParens": "avoid"
+      }
+    },
+    {
+      "files": ["*{.json,rc,cjs,yml,yaml}"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
+}

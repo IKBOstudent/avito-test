@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es6",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+
+    "skipLibCheck": true,
+    "allowJs": false,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+
+    "removeComments": true,
+    "outDir": "dist",
+    "baseUrl": "./src"
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
