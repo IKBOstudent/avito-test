@@ -4,6 +4,10 @@
   display: flex;
   padding: 12px 6px;
   align-items: center;
+
+  > span {
+    color: var(--g-color-text-secondary);
+  }
 }
 
 .select {

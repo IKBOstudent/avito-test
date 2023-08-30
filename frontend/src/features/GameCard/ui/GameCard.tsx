@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Text } from '@gravity-ui/uikit';
 
 import { getDate } from '@/shared/lib';
+import { type IGame } from '@/entities/game';
 import { GameCardSkeleton } from './skeleton/GameCardSkeleton';
 
 import styles from './GameCard.module.scss';

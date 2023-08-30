@@ -1,4 +1,4 @@
-import { useGetAllGamesByFilterQuery } from '@/shared/api/baseApi';
+import { useGetAllGamesByFilterQuery } from '@/entities/game';
 import GameCard from '@/features/GameCard';
 
 import styles from './GameList.module.scss';
@@ -11,7 +11,7 @@ export const GameList = () => {
 
     return (
         <div className={styles.root}>
-            {data.slice(100, 107).map(item => (
+            {data.slice(0, 107).map(item => (
                 <GameCard key={item.id} item={item} loading={isFetching} />
             ))}
         </div>

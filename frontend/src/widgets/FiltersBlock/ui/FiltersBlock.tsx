@@ -1,18 +1,21 @@
+import { Text } from '@gravity-ui/uikit';
+
+import { categoryVars, platformVars } from '@/entities/filter';
 import { ResetFiltersButton } from '@/features/ResetFiltersButton';
 import { FilterSelect } from '@/features/FilterSelect';
 
 import styles from './FiltersBlock.module.scss';
 
 const filters = [
-    { name: 'genre', options: ['1', '2', '31'] },
-    { name: 'platform', options: ['2', '33'] },
+    { name: 'genre', options: categoryVars },
+    { name: 'platform', options: platformVars },
 ];
 
 export const FiltersBlock = () => {
     return (
         <div className={styles.root}>
             <div className={styles.head}>
-                <h3>Filters</h3>
+                <Text variant="body-2">Filters</Text>
                 <ResetFiltersButton />
             </div>
 

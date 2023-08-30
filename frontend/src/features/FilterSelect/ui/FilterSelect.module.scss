@@ -5,4 +5,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  > span {
+    color: var(--g-color-text-secondary);
+  }
+}
+
+.select {
+  border-radius: 4px;
 }

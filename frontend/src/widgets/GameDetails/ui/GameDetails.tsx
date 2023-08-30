@@ -1,99 +1,113 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@gravity-ui/uikit';
+import { Link, useParams } from 'react-router-dom';
+import { Button, Text, Link as LinkGravity } from '@gravity-ui/uikit';
+import { ChevronLeft } from '@gravity-ui/icons';
 
 import { getDate } from '@/shared/lib';
-import { GameDetailsSkeleton } from './skeleton/GameDetailsSkeleton';
+import { useGetGameByIdQuery } from '@/entities/game';
+import { ScreensCarousel } from '@/features/ScreensCarousel';
+
 import styles from './GameDetails.module.scss';
 
-interface IGameDetailsProps {
-    loading: boolean;
-    game: IGame;
-}
-
-export const GameDetails = ({ loading, game }: IGameDetailsProps) => {
+export const GameDetails = () => {
+    const { id } = useParams<{ id: string }>();
     const {
-        // id,
+        data = null,
+        isFetching,
+        error,
+    } = useGetGameByIdQuery(id || '0', {
+        skip: !id,
+    });
+
+    const isNotFound = !id || (!isFetching && !data);
+
+    if (isNotFound) {
+        return (
+            <div>
+                Game not found, go to <Link to="/">home page</Link>
+            </div>
+        );
+    }
+
+    if (error) return null;
+    if (!data) return null;
+
+    const {
         title,
         release_date,
         publisher,
         developer,
         genre,
         platform,
-        // thumbnail,
+        thumbnail,
         description,
         short_description,
         game_url,
         screenshots,
-    } = game;
+    } = data;
 
-    if (loading) return <GameDetailsSkeleton />;
+    const info = [
+        {
+            name: 'Release Date',
+            value: getDate(release_date),
+        },
+        { name: 'Publisher', value: publisher },
+        { name: 'Developer', value: developer },
+    ];
 
     return (
         <div className={styles.root}>
-            <div className={styles.header}>
-                <Link to="/">Return to home page</Link>
+            <Link to="/">
+                <LinkGravity view="secondary" className={styles.returnButton}>
+                    <ChevronLeft />
+                    Home
+                </LinkGravity>
+            </Link>
 
-                <h1>{title}</h1>
+            <div className={styles.title}>
+                <Text variant="display-3">{title}</Text>
             </div>
-            <section className={styles.main}>
-                <div className={styles.info}>
-                    <div>
-                        <div className={styles.image_carousel}>
-                            <img src={screenshots[0].image} alt="Screen" />
-                        </div>
-                        <div className={styles.screenshots}>
-                            {screenshots.map(item => (
-                                <img
-                                    height={40}
-                                    width={80}
-                                    key={item.id}
-                                    src={item.image}
-                                    alt="Screen"
-                                />
-                            ))}
-                        </div>
 
-                        <div className={styles.details}>
-                            <p>{short_description}</p>
-                        </div>
+            <div className={styles.main}>
+                <section className={styles.about}>
+                    <ScreensCarousel screenshots={screenshots} />
 
-                        <div className={styles.game_info}>
-                            <div>
-                                <small>Genre</small>
-                                <h3>{genre}</h3>
-                            </div>
-                            <div>
-                                <small>Platform</small>
-                                <h3>{platform}</h3>
-                            </div>
+                    <div className={styles.short_desc}>
+                        <Text variant="body-3">{short_description}</Text>
+                    </div>
+
+                    <div className={styles.game_info}>
+                        <div className={styles.game_infoGroup}>
+                            <Text variant="subheader-1">Genre</Text>
+                            <Text variant="subheader-2">{genre}</Text>
+                        </div>
+                        <div className={styles.game_infoGroup}>
+                            <Text variant="subheader-1">Platform</Text>
+                            <Text variant="subheader-2">{platform}</Text>
                         </div>
                     </div>
 
-                    <div className={styles.about}>
-                        <h3>{title}</h3>
-                        <p>{description}</p>
+                    <div className={styles.desc}>
+                        <Text variant="header-2">ABOUT THIS GAME</Text>
+                        <Text variant="body-2">{description}</Text>
                     </div>
-                </div>
-                <aside>
+                </section>
+                <aside className={styles.aside}>
+                    <img src={thumbnail} alt="preview" />
+
                     <Link to={game_url} target="_blank">
                         <Button size="xl">Играть</Button>
                     </Link>
+
                     <ul>
-                        <li>
-                            <h5>Release Date</h5>
-                            <span>{getDate(release_date)}</span>
-                        </li>
-                        <li>
-                            <h5>Publisher</h5>
-                            <span>{publisher}</span>
-                        </li>
-                        <li>
-                            <h5>Developer</h5>
-                            <span>{developer}</span>
-                        </li>
+                        {info.map(item => (
+                            <li key={item.name}>
+                                <Text variant="body-1">{item.name}</Text>
+                                <Text variant="body-2">{item.value}</Text>
+                            </li>
+                        ))}
                     </ul>
                 </aside>
-            </section>
+            </div>
         </div>
     );
 };

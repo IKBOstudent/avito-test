@@ -2,11 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 import { baseApi } from '@/shared/api';
-import { gameReducer } from '@/entities/game';
 
 export const store = configureStore({
     reducer: {
-        gameReducer,
         [baseApi.reducerPath]: baseApi.reducer,
     },
     middleware: gDM => gDM().concat([baseApi.middleware]),

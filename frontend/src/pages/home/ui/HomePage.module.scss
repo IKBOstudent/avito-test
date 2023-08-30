@@ -1,15 +1,13 @@
 .root {
   width: 100%;
   position: relative;
-
-  background-color: var(--color-background-default);
 }
 
 .container {
   width: 80%;
   max-width: var(--container-xl);
   height: 100%;
-  margin: 0 auto;
+  margin: 60px auto;
 
   display: flex;
   flex-direction: row;

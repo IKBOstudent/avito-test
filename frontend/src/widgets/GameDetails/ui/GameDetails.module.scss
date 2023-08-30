@@ -2,87 +2,98 @@
   width: 100%;
 }
 
-.header {
-  margin-top: 20px;
-  h1 {
-    color: white;
-  }
+.returnButton {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-top: 10px;
 }
 
 .main {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: row;
-
-  .info {
-    width: 100%;
-  }
-
-  aside {
-    flex-shrink: 0;
-    width: 256px;
-    margin-left: 32px;
-
-    button {
-      width: 100%;
-    }
-
-    ul {
-      list-style: none;
-      li {
-        height: 60px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        &:nth-child(n + 2) {
-          border-top: 1px solid var(--g-color-line-light);
-        }
-      }
-    }
-  }
-}
-
-.details {
-  margin-top: 30px;
-  p {
-    line-height: 24px;
-    font-size: 20px;
-  }
-}
-
-.image_carousel {
-  img {
-    border-radius: 4px;
-    position: relative;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-.screenshots {
   margin-top: 20px;
-
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  gap: 30px;
-
-  img {
-    object-fit: cover;
-    border-radius: 4px;
-  }
-}
-
-.game_info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
 }
 
 .about {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .game_info {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 64px;
+
+    &Group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      padding-left: 24px;
+      border-left: 1px solid var(--g-color-line-light);
+
+      > span:first-child {
+        color: var(--g-color-text-secondary);
+      }
+
+      > span:last-child {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .desc {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    > span:last-child {
+      color: var(--g-color-text-complementary);
+    }
+  }
+}
+
+.aside {
+  flex-shrink: 0;
+  width: 320px;
+  margin-left: 64px;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  img {
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      height: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      &:nth-child(n + 2) {
+        border-top: 1px solid var(--g-color-line-light);
+      }
+
+      > span:first-child {
+        color: var(--g-color-text-secondary);
+      }
+    }
+  }
 }
