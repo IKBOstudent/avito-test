@@ -1,11 +1,26 @@
 .root {
-  padding: 2em;
-  align-content: stretch;
+  width: 100%;
+  position: relative;
+
+  background-color: var(--color-background-default);
+}
+
+.container {
+  width: 80%;
+  max-width: var(--container-xl);
+  height: 100%;
+  margin: 0 auto;
+
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.main {
   width: 100%;
 }
 
-.readTheDocs {
-  color: #888;
+.aside {
+  flex-shrink: 0;
+  width: 256px;
+  margin-left: 24px;
 }

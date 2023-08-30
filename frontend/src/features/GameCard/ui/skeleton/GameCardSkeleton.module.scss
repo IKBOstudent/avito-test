@@ -1,0 +1,29 @@
+.root {
+  width: 100%;
+}
+
+.image {
+  height: 180px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.info {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  > div:first-child {
+    border-radius: 4px;
+
+    width: 60%;
+    height: 24px;
+  }
+  > div:last-child {
+    border-radius: 4px;
+
+    width: 80px;
+    height: 20px;
+  }
+}

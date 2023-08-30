@@ -36,7 +36,7 @@
         justify-content: space-between;
         align-items: center;
         &:nth-child(n + 2) {
-          border-top: 1px solid gray;
+          border-top: 1px solid var(--g-color-line-light);
         }
       }
     }

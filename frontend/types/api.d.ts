@@ -3,7 +3,7 @@ declare interface IScreenshot {
     image: string;
 }
 
-declare interface IGame {
+interface IGame {
     id: number;
     title: string;
     thumbnail: string;
@@ -25,7 +25,11 @@ declare interface IGame {
     screenshots: IScreenshot[];
 }
 
-const categories = [
+export const platformVars = ['pc', 'browser', 'all'] as const;
+
+declare type TPlatform = (typeof platformVars)[number];
+
+export const categoryVars = [
     'mmorpg',
     'shooter',
     'strategy',
@@ -73,16 +77,27 @@ const categories = [
     'mmorts',
 ] as const;
 
+declare type TCategory = (typeof categoryVars)[number];
+
+export const sortVars = [
+    'release-date',
+    'popularity',
+    'alphabetical',
+    'relevance',
+] as const;
+
+declare type TSort = (typeof sortVars)[number];
+
 declare type TSearchFilter =
     | {
           name: 'platform';
-          value: 'pc' | 'browser' | 'all';
+          value: TPlatform;
       }
     | {
           name: 'category';
-          value: (typeof categories)[number];
+          value: TCategory;
       }
     | {
           name: 'sort-by';
-          value: 'release-date' | 'popularity' | 'alphabetical' | 'relevance';
+          value: TSort;
       };

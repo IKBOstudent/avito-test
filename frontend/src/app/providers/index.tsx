@@ -6,10 +6,6 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { store } from '../redux/store';
 import AppRouter from './AppRouter';
 
-import '@gravity-ui/uikit/styles/fonts.css';
-import '@gravity-ui/uikit/styles/styles.css';
-import '@/shared/global.scss';
-
 const Provider = () => {
     return (
         <React.StrictMode>

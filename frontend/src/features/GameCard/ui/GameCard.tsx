@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Text } from '@gravity-ui/uikit';
 
 import { getDate } from '@/shared/lib';
 import { GameCardSkeleton } from './skeleton/GameCardSkeleton';
@@ -12,20 +13,28 @@ interface IGameCardProps {
 
 export const GameCard = ({ item, loading }: IGameCardProps) => {
     const { id, title, release_date, publisher, genre, thumbnail } = item;
+
     if (loading) return <GameCardSkeleton />;
 
     return (
         <Link to={`/game/${id}`} className={styles.root}>
             <div className={styles.image}>
-                <img src={thumbnail} alt={`Poster ${title}`} height={200} />
+                <img src={thumbnail} alt={`Poster ${title}`} height={180} />
             </div>
             <div className={styles.info}>
-                <div className={styles.info_header}>
-                    <small>{publisher}</small>
-                    <span>{getDate(release_date)}</span>
+                <div className={styles.info_main}>
+                    <Text variant="header-1">{title}</Text>
+                    <Text variant="body-2">{genre}</Text>
                 </div>
-                <h2>{title}</h2>
-                <h5>{genre}</h5>
+
+                <div className={styles.info_publish}>
+                    <Text ellipsis variant="body-1">
+                        {publisher}
+                    </Text>
+                    <Text variant="caption-2" whiteSpace="nowrap">
+                        {getDate(release_date)}
+                    </Text>
+                </div>
             </div>
         </Link>
     );
