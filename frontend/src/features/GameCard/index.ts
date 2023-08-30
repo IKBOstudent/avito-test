@@ -1,3 +1,1 @@
-import { GameCard } from './ui/GameCard';
-
-export default GameCard;
+export { GameCard } from './ui/GameCard';

@@ -1,8 +1,12 @@
 import { Button } from '@gravity-ui/uikit';
 
+import { resetFilters } from '@/entities/filter';
+import { useAppDispatch } from '@/shared/lib/hooks';
+
 export const ResetFiltersButton = () => {
+    const dispatch = useAppDispatch();
     const handleClick = () => {
-        console.log('RESET clicked');
+        dispatch(resetFilters());
     };
 
     return (

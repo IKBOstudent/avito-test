@@ -71,7 +71,7 @@ export const GameDetails = () => {
                 <section className={styles.about}>
                     <ScreensCarousel screenshots={screenshots} />
 
-                    <div className={styles.short_desc}>
+                    <div>
                         <Text variant="body-3">{short_description}</Text>
                     </div>
 

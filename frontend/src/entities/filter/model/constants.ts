@@ -1,6 +1,6 @@
 export const platformVars = ['pc', 'browser', 'all'] as const;
 
-export const categoryVars = [
+export const genreVars = [
     'mmorpg',
     'shooter',
     'strategy',

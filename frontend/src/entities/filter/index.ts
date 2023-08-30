@@ -1,8 +1,18 @@
 export {
-    type TSearchFilter,
-    type TCategory,
+    type TFilter,
+    type TFilterTypes,
+    type TGenre,
     type TPlatform,
     type TSort,
 } from './model/types';
 
-export { platformVars, categoryVars, sortVars } from './model/constants';
+export { platformVars, genreVars, sortVars } from './model/constants';
+
+export {
+    filterReducer,
+    resetFilters,
+    setSort,
+    setFilter,
+    selectSort,
+    selectFilter,
+} from './model/slice';

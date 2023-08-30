@@ -1,19 +1,14 @@
-import { useState } from 'react';
 import { Select, Text } from '@gravity-ui/uikit';
 
 import styles from './SortSelect.module.scss';
 
 interface ISelectProps {
+    current: [string] | [];
     options: readonly string[];
+    onUpdate: (nextValue: string[]) => void;
 }
 
-export const SortSelect = ({ options }: ISelectProps) => {
-    const [current, setCurrent] = useState<string[]>([options[0]]);
-
-    const onUpdate = (nextValue: string[]) => {
-        setCurrent(nextValue);
-    };
-
+export const SortSelect = ({ current, options, onUpdate }: ISelectProps) => {
     return (
         <div className={styles.root}>
             <Text variant="body-1">Sort by:</Text>

@@ -1,20 +1,33 @@
-import { useState } from 'react';
 import { Select, Text } from '@gravity-ui/uikit';
+
+import {
+    TFilterTypes,
+    setFilter,
+    selectFilter,
+    TFilter,
+} from '@/entities/filter';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 
 import styles from './FilterSelect.module.scss';
 
 interface IFilterSelectProps {
-    name: string;
+    name: TFilterTypes;
     options: readonly string[];
 }
 
 const defaultOption = '--';
 
 export const FilterSelect = ({ name, options }: IFilterSelectProps) => {
-    const [current, setCurrent] = useState<string[]>([]);
+    const dispatch = useAppDispatch();
+    const current = useAppSelector(state => selectFilter(state, name));
 
-    const onUpdate = (nextValue: string[]) => {
-        setCurrent(nextValue[0] == defaultOption ? [] : nextValue);
+    const handleUpdate = (nextValue: string[]) => {
+        dispatch(
+            setFilter({
+                name,
+                value: nextValue[0] === defaultOption ? null : nextValue[0],
+            } as TFilter<TFilterTypes>)
+        );
     };
 
     return (
@@ -23,9 +36,9 @@ export const FilterSelect = ({ name, options }: IFilterSelectProps) => {
             <Select
                 size="l"
                 className={styles.select}
-                value={current}
+                value={current ? [current] : []}
                 placeholder={defaultOption}
-                onUpdate={onUpdate}
+                onUpdate={handleUpdate}
                 options={[defaultOption, ...[...options].sort()].map(item => ({
                     value: item,
                     content: item,
