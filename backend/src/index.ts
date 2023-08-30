@@ -25,9 +25,12 @@ app.get('/', (_, response) => {
 app.get('/api/games', async (request, response) => {
     try {
         const query = queryString.stringify(request.query);
-        const { data } = await axios.get<any[]>(
-            `/games${query ? '?' + query : ''}`
-        );
+        const { data } = await axios.get(`/games${query ? '?' + query : ''}`);
+
+        if (data.status !== undefined && data.status === 0) {
+            response.status(200).send([]);
+            return;
+        }
 
         response.status(200).send(data);
     } catch (e) {
@@ -37,9 +40,12 @@ app.get('/api/games', async (request, response) => {
 
 app.get('/api/games/:id', async (request, response) => {
     try {
-        const { data } = await axios.get<any[]>(
-            `/game?id=${request.params.id}`
-        );
+        const { data } = await axios.get<any>(`/game?id=${request.params.id}`);
+
+        if (data.status !== undefined && data.status === 0) {
+            response.status(200).send([]);
+            return;
+        }
 
         response.status(200).send(data);
     } catch (e) {
