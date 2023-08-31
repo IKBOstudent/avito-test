@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import { Button, Text, Link as LinkGravity } from '@gravity-ui/uikit';
 import { ChevronLeft } from '@gravity-ui/icons';
-
 import { getDate } from '@/shared/lib';
 import { ScreensCarousel } from '@/features/ScreensCarousel';
 import { useGetGame } from '../lib/useGetGame';
@@ -39,8 +39,10 @@ const GameError = () => {
 export const GameDetails = () => {
     const { data, isFetching, error } = useGetGame();
 
+    const isMobile = useMediaQuery({ maxWidth: 600 });
+
     if (!data) {
-        if (isFetching) return <GameDetailsSkeleton />;
+        if (isFetching) return <GameDetailsSkeleton isMobile={isMobile} />;
         return <GameNotFound />;
     }
 
@@ -59,6 +61,12 @@ export const GameDetails = () => {
         short_description,
         game_url,
         screenshots,
+        minimum_system_requirements,
+        // graphics
+        // memory
+        // os
+        // processor
+        // storage
     } = data;
 
     const info = [
@@ -88,6 +96,7 @@ export const GameDetails = () => {
                     <ScreensCarousel
                         screenshots={screenshots}
                         loading={false}
+                        isMobile={isMobile}
                     />
 
                     <div>
@@ -109,22 +118,50 @@ export const GameDetails = () => {
                         <Text variant="header-2">ABOUT THIS GAME</Text>
                         <Text variant="body-2">{description}</Text>
                     </div>
+
+                    <div className={styles.requirements}>
+                        <Text variant="body-2">
+                            Minimum system requirements
+                        </Text>
+                        <div className={styles.requirements_info}>
+                            {(
+                                Object.keys(
+                                    minimum_system_requirements
+                                ) as Array<
+                                    keyof typeof minimum_system_requirements
+                                >
+                            ).map(name => (
+                                <div className={styles.game_infoGroup}>
+                                    <Text variant="subheader-1">
+                                        {name.toUpperCase()}
+                                    </Text>
+                                    <Text variant="subheader-1">
+                                        {minimum_system_requirements[name]}
+                                    </Text>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </section>
                 <aside className={styles.aside}>
                     <img src={thumbnail} alt="preview" />
 
-                    <Link to={game_url} target="_blank">
-                        <Button size="xl">Play now</Button>
-                    </Link>
+                    <div className={styles.aside_info}>
+                        <Link to={game_url} target="_blank">
+                            <Button size="xl">Play now</Button>
+                        </Link>
 
-                    <ul>
-                        {info.map(item => (
-                            <li key={item.name}>
-                                <Text variant="body-1">{item.name}</Text>
-                                <Text variant="body-2">{item.value}</Text>
-                            </li>
-                        ))}
-                    </ul>
+                        <ul>
+                            {info.map(item => (
+                                <li key={item.name}>
+                                    <Text variant="body-2">{item.name}</Text>
+                                    <Text variant="subheader-2">
+                                        {item.value}
+                                    </Text>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </aside>
             </div>
         </div>

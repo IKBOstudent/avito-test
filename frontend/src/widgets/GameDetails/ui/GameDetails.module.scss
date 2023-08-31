@@ -27,6 +27,12 @@
   margin-top: 20px;
   display: flex;
   flex-direction: row;
+  gap: 64px;
+
+  @media screen and (max-width: 1150px) {
+    flex-direction: column-reverse;
+    gap: 32px;
+  }
 }
 
 .about {
@@ -54,6 +60,7 @@
 
       > span:last-child {
         text-decoration: underline;
+        text-underline-offset: 2px;
       }
     }
   }
@@ -67,27 +74,75 @@
       color: var(--g-color-text-complementary);
     }
   }
+
+  .requirements {
+    width: 100%;
+    margin-top: 32px;
+
+    padding: 24px 32px;
+    border-radius: 4px;
+    background-color: var(--g-color-secondary-background);
+
+    > span:first-child {
+      color: var(--g-color-text-complementary);
+    }
+
+    &_info {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .game_infoGroup {
+        padding: 0 2px;
+        border: none;
+        gap: 4px;
+      }
+    }
+  }
 }
 
 .aside {
   flex-shrink: 0;
   width: 320px;
-  margin-left: 64px;
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
+
+  @media screen and (max-width: 1150px) {
+    flex-direction: row;
+    width: 100%;
+
+    img {
+      min-width: 1px;
+      height: 100%;
+      flex-grow: 1;
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    flex-direction: column;
+    width: 100%;
+
+    .aside_info {
+      width: 100%;
+    }
+  }
 
   img {
-    width: 100%;
     border-radius: 4px;
     object-fit: cover;
     object-position: center;
   }
+}
+
+.aside_info {
+  flex-shrink: 0;
+  width: 320px;
 
   button {
     --yc-button-border-radius: 4px;
-    margin-top: 12px;
     width: 100%;
   }
 

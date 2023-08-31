@@ -24,6 +24,12 @@
   margin-top: 20px;
   display: flex;
   flex-direction: row;
+  gap: 64px;
+
+  @media screen and (max-width: 1150px) {
+    flex-direction: column-reverse;
+    gap: 32px;
+  }
 }
 
 .about {
@@ -68,18 +74,43 @@
 .aside {
   flex-shrink: 0;
   width: 320px;
-  margin-left: 64px;
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
 
-  > div:first-child {
+  .image {
     height: 180px;
   }
 
-  > div:nth-child(2) {
-    margin-top: 12px;
+  @media screen and (max-width: 1150px) {
+    flex-direction: row;
+    width: 100%;
+
+    .image {
+      height: 300px;
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    flex-direction: column;
+    width: 100%;
+
+    .aside_info {
+      width: 100%;
+    }
+
+    .image {
+      height: 300px;
+    }
+  }
+}
+
+.aside_info {
+  flex-shrink: 0;
+  width: 320px;
+
+  > div:first-child {
     width: 100%;
     height: 44px;
   }

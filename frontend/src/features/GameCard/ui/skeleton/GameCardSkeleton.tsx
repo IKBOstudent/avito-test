@@ -7,7 +7,10 @@ export const GameCardSkeleton = () => {
         <div className={styles.root}>
             <Skeleton className={styles.image} />
             <div className={styles.info}>
-                <Skeleton />
+                <div className={styles.info_main}>
+                    <Skeleton />
+                    <Skeleton />
+                </div>
                 <Skeleton />
             </div>
         </div>

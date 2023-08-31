@@ -1,7 +1,11 @@
 import { Skeleton } from '@gravity-ui/uikit';
 import styles from './CarouselSkeleton.module.scss';
 
-export const CarouselSkeleton = () => {
+export const CarouselSkeleton = ({
+    screensPerPage,
+}: {
+    screensPerPage: number;
+}) => {
     return (
         <div className={styles.root}>
             <div className={styles.carousel}>
@@ -11,10 +15,14 @@ export const CarouselSkeleton = () => {
             <div className={styles.screens}>
                 <div
                     className={styles.screenWrapper}
-                    style={{ maxWidth: 'calc(80px * 3 + 24px * 2)' }}
+                    style={{
+                        maxWidth: `calc(80px * ${screensPerPage} + 24px * ${
+                            screensPerPage - 1
+                        })`,
+                    }}
                 >
                     <ul>
-                        {[...Array(3)].map((_, i) => (
+                        {[...Array(screensPerPage)].map((_, i) => (
                             <li key={i}>
                                 <Skeleton />
                             </li>

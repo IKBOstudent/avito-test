@@ -10,16 +10,20 @@ import styles from './ScreensCarousel.module.scss';
 interface IScreensCarouselProps {
     screenshots: IScreenshot[];
     loading: boolean;
+    isMobile: boolean;
 }
 
 export const ScreensCarousel = ({
     screenshots,
     loading,
+    isMobile,
 }: IScreensCarouselProps) => {
     const [selectedId, setSelectedId] = useState<number>(0);
     const [selectedPage, setSelectedPage] = useState<number>(0);
 
-    if (loading) return <CarouselSkeleton />;
+    const screensPerPage = isMobile ? 1 : 3;
+
+    if (loading) return <CarouselSkeleton screensPerPage={screensPerPage} />;
 
     if (screenshots.length === 0) return null;
 
@@ -33,7 +37,9 @@ export const ScreensCarousel = ({
 
     const handleIncreasePage = () => {
         setSelectedPage(prev =>
-            prev < Math.ceil(screenshots.length / 3) - 1 ? prev + 1 : prev
+            prev < Math.ceil(screenshots.length / screensPerPage) - 1
+                ? prev + 1
+                : prev
         );
     };
 
@@ -65,11 +71,15 @@ export const ScreensCarousel = ({
                 </Button>
                 <div
                     className={styles.screenWrapper}
-                    style={{ maxWidth: 'calc(80px * 3 + 24px * 2)' }}
+                    style={{
+                        maxWidth: `calc(80px * ${screensPerPage} + 24px * ${
+                            screensPerPage - 1
+                        })`,
+                    }}
                 >
                     <ul
                         style={{
-                            transform: `translateX(calc(${selectedPage} * (-80px * 3 - 24px * 3)))`,
+                            transform: `translateX(calc(${selectedPage} * ((-80px - 24px) * ${screensPerPage})))`,
                         }}
                     >
                         {screenshots.map((item, i) => (
@@ -93,7 +103,8 @@ export const ScreensCarousel = ({
                 <Button
                     size="s"
                     disabled={
-                        selectedPage === Math.ceil(screenshots.length / 3) - 1
+                        selectedPage ===
+                        Math.ceil(screenshots.length / screensPerPage) - 1
                     }
                     onClick={handleIncreasePage}
                 >

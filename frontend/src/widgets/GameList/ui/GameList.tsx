@@ -1,6 +1,6 @@
 import { Text } from '@gravity-ui/uikit';
 
-import { GameCard } from '@/features/GameCard';
+import { GameCard, GameCardSkeleton } from '@/features/GameCard';
 import { useGetList } from '../lib/useGetList';
 
 import styles from './GameList.module.scss';
@@ -26,9 +26,11 @@ export const GameList = () => {
 
     return (
         <div className={styles.root}>
-            {data.slice(0, 12).map(item => (
-                <GameCard key={item.id} item={item} loading={isFetching} />
-            ))}
+            {isFetching
+                ? [...Array(7)].map((_, i) => <GameCardSkeleton key={i} />)
+                : data
+                      .slice(0, 12)
+                      .map(item => <GameCard key={item.id} item={item} />)}
         </div>
     );
 };

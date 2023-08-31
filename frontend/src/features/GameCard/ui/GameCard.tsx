@@ -3,19 +3,15 @@ import { Text } from '@gravity-ui/uikit';
 
 import { getDate } from '@/shared/lib';
 import { type IGame } from '@/entities/game';
-import { GameCardSkeleton } from './skeleton/GameCardSkeleton';
 
 import styles from './GameCard.module.scss';
 
 interface IGameCardProps {
     item: IGame;
-    loading: boolean;
 }
 
-export const GameCard = ({ item, loading }: IGameCardProps) => {
+export const GameCard = ({ item }: IGameCardProps) => {
     const { id, title, release_date, publisher, genre, thumbnail } = item;
-
-    if (loading) return <GameCardSkeleton />;
 
     return (
         <Link to={`/game/${id}`} className={styles.root}>
