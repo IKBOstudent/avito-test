@@ -119,29 +119,34 @@ export const GameDetails = () => {
                         <Text variant="body-2">{description}</Text>
                     </div>
 
-                    <div className={styles.requirements}>
-                        <Text variant="body-2">
-                            Minimum system requirements
-                        </Text>
-                        <div className={styles.requirements_info}>
-                            {(
-                                Object.keys(
-                                    minimum_system_requirements
-                                ) as Array<
-                                    keyof typeof minimum_system_requirements
-                                >
-                            ).map(name => (
-                                <div className={styles.game_infoGroup}>
-                                    <Text variant="subheader-1">
-                                        {name.toUpperCase()}
-                                    </Text>
-                                    <Text variant="subheader-1">
-                                        {minimum_system_requirements[name]}
-                                    </Text>
-                                </div>
-                            ))}
+                    {!!minimum_system_requirements && (
+                        <div className={styles.requirements}>
+                            <Text variant="body-2">
+                                Minimum system requirements
+                            </Text>
+                            <div className={styles.requirements_info}>
+                                {(
+                                    Object.keys(
+                                        minimum_system_requirements
+                                    ) as Array<
+                                        keyof typeof minimum_system_requirements
+                                    >
+                                ).map(name => (
+                                    <div
+                                        key={name}
+                                        className={styles.game_infoGroup}
+                                    >
+                                        <Text variant="subheader-1">
+                                            {name.toUpperCase()}
+                                        </Text>
+                                        <Text variant="subheader-1">
+                                            {minimum_system_requirements[name]}
+                                        </Text>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </section>
                 <aside className={styles.aside}>
                     <img src={thumbnail} alt="preview" />
