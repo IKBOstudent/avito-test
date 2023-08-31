@@ -20,7 +20,7 @@ export const GameCard = ({ item, loading }: IGameCardProps) => {
     return (
         <Link to={`/game/${id}`} className={styles.root}>
             <div className={styles.image}>
-                <img src={thumbnail} alt={`Poster ${title}`} height={180} />
+                <img src={thumbnail} alt={`Poster ${title}`} />
             </div>
             <div className={styles.info}>
                 <div className={styles.info_main}>

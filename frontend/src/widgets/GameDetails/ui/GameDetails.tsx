@@ -38,7 +38,7 @@ const GameError = () => {
 
 export const GameDetails = () => {
     const { data, isFetching, error } = useGetGame();
-    console.log(data, isFetching);
+
     if (!data) {
         if (isFetching) return <GameDetailsSkeleton />;
         return <GameNotFound />;

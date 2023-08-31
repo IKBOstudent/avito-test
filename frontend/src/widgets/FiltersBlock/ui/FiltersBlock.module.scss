@@ -19,3 +19,12 @@
     border-top: 1px solid var(--g-color-line-generic);
   }
 }
+
+.popupWrapper {
+  background-color: #1d1d1dcc;
+  width: 300px;
+  padding: 12px;
+  .filterItem {
+    border: none;
+  }
+}
