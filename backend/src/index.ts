@@ -18,6 +18,17 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 
+function sleep(): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, 2000));
+}
+
+axios.interceptors.request.use(async config => {
+    if (process.env.NODE_ENV === 'development') {
+        await sleep();
+    }
+    return config;
+});
+
 app.get('/', (_, response) => {
     response.send('server is running...');
 });
