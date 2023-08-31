@@ -1,5 +1,17 @@
 .root {
   width: 100%;
+
+  > a:first-child {
+    display: block;
+    width: fit-content;
+  }
+}
+
+.messageRoot {
+  .message {
+    margin-top: 6px;
+    color: var(--g-color-text-secondary);
+  }
 }
 
 .returnButton {
@@ -74,6 +86,7 @@
   }
 
   button {
+    --yc-button-border-radius: 4px;
     margin-top: 12px;
     width: 100%;
   }

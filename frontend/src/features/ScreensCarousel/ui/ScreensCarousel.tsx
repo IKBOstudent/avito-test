@@ -3,15 +3,25 @@ import { Button } from '@gravity-ui/uikit';
 import { ChevronLeft, ChevronRight } from '@gravity-ui/icons';
 
 import { IScreenshot } from '@/entities/game';
+import { CarouselSkeleton } from './skeleton/CarouselSkeleton';
+
 import styles from './ScreensCarousel.module.scss';
 
 interface IScreensCarouselProps {
     screenshots: IScreenshot[];
+    loading: boolean;
 }
 
-export const ScreensCarousel = ({ screenshots }: IScreensCarouselProps) => {
+export const ScreensCarousel = ({
+    screenshots,
+    loading,
+}: IScreensCarouselProps) => {
     const [selectedId, setSelectedId] = useState<number>(0);
     const [selectedPage, setSelectedPage] = useState<number>(0);
+
+    if (loading) return <CarouselSkeleton />;
+
+    if (screenshots.length === 0) return null;
 
     const handleSelect = (nextId: number) => {
         setSelectedId(nextId);
@@ -26,8 +36,6 @@ export const ScreensCarousel = ({ screenshots }: IScreensCarouselProps) => {
             prev < Math.ceil(screenshots.length / 3) - 1 ? prev + 1 : prev
         );
     };
-
-    if (screenshots.length === 0) return null;
 
     return (
         <div className={styles.root}>

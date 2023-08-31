@@ -1,36 +1,52 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Text, Link as LinkGravity } from '@gravity-ui/uikit';
 import { ChevronLeft } from '@gravity-ui/icons';
 
 import { getDate } from '@/shared/lib';
-import { useGetGameByIdQuery } from '@/entities/game';
 import { ScreensCarousel } from '@/features/ScreensCarousel';
+import { useGetGame } from '../lib/useGetGame';
+
+import { GameDetailsSkeleton } from './skeleton/GameDetailsSkeleton';
 
 import styles from './GameDetails.module.scss';
 
+const GameNotFound = () => {
+    return (
+        <div className={styles.messageRoot}>
+            <Link to="/">
+                <LinkGravity view="secondary" className={styles.returnButton}>
+                    <ChevronLeft />
+                    Home
+                </LinkGravity>
+            </Link>
+            <Text variant="display-1" className={styles.message}>
+                Game not found :(
+            </Text>
+        </div>
+    );
+};
+
+const GameError = () => {
+    return (
+        <div className={styles.messageRoot}>
+            <Text variant="display-1" className={styles.message}>
+                Something went wrong! Try again later
+            </Text>
+        </div>
+    );
+};
+
 export const GameDetails = () => {
-    const { id } = useParams<{ id: string }>();
-    const {
-        data = null,
-        isFetching,
-        error,
-    } = useGetGameByIdQuery(id || '0', {
-        skip: !id,
-    });
-
-    const isNotFound = !id || (!isFetching && !data);
-
-    if (isNotFound) {
-        return (
-            <div>
-                Game not found, go to <Link to="/">home page</Link>
-            </div>
-        );
+    const { data, isFetching, error } = useGetGame();
+    console.log(data, isFetching);
+    if (!data) {
+        if (isFetching) return <GameDetailsSkeleton />;
+        return <GameNotFound />;
     }
 
-    if (error) return null;
-    if (!data) return null;
-
+    if (error) {
+        return <GameError />;
+    }
     const {
         title,
         release_date,
@@ -69,7 +85,10 @@ export const GameDetails = () => {
 
             <div className={styles.main}>
                 <section className={styles.about}>
-                    <ScreensCarousel screenshots={screenshots} />
+                    <ScreensCarousel
+                        screenshots={screenshots}
+                        loading={false}
+                    />
 
                     <div>
                         <Text variant="body-3">{short_description}</Text>
@@ -95,7 +114,7 @@ export const GameDetails = () => {
                     <img src={thumbnail} alt="preview" />
 
                     <Link to={game_url} target="_blank">
-                        <Button size="xl">Играть</Button>
+                        <Button size="xl">Play now</Button>
                     </Link>
 
                     <ul>

@@ -1,40 +1,28 @@
-import { useMemo } from 'react';
 import { Text } from '@gravity-ui/uikit';
 
-import { useGetAllGamesByFilterQuery } from '@/entities/game';
 import { GameCard } from '@/features/GameCard';
-import { useAppSelector } from '@/shared/lib/hooks';
+import { useGetList } from '../lib/useGetList';
 
 import styles from './GameList.module.scss';
 
 export const GameList = () => {
-    const { sort, filters } = useAppSelector(state => state.filterReducer);
+    const { data, isFetching, error } = useGetList();
 
-    const query = useMemo(() => {
-        const sortQuery = `sort-by=${sort}`;
-        const filtersQuery = filters
-            .filter(item => item.value !== null)
-            .map(({ name, value }) => `${name}=${value}`)
-            .join('&')
-            .replace('genre', 'category');
-
-        return sortQuery + (filtersQuery && `&${filtersQuery}`);
-    }, [sort, filters]);
-
-    const { data = [], isFetching, error } = useGetAllGamesByFilterQuery(query);
-
-    if (error)
+    if (error) {
         return (
             <Text variant="display-1" className={styles.message}>
-                Произошла ошибка! Попробуйте снова
+                Something went wrong! Try again later
             </Text>
         );
-    if (data.length === 0)
+    }
+
+    if (!isFetching && data.length === 0) {
         return (
             <Text variant="display-1" className={styles.message}>
-                Ничего не найдено :(
+                Nothing found :(
             </Text>
         );
+    }
 
     return (
         <div className={styles.root}>
